@@ -20,4 +20,16 @@ const taskExist = catchAsync(async (req, res, next) => {
     next()
 })
 
-module.exports = {taskExist}
+const statusExist = catchAsync(async (req, res, next) => {
+    const {status} = req.params
+
+    const validStatus = ["active", "completed", "late", "cancelled"]
+
+	if (!validStatus.includes(status)){
+		return next(new AppError('Status not valid', 404))
+	}
+
+    next()
+})
+
+module.exports = {taskExist, statusExist}

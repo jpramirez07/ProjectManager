@@ -5,7 +5,7 @@ const {getAllTasks, createTasks, getTasksByStatus, updateTasks, deleteTasks} = r
 
 //middlewares
 const {createTaskValidator} = require('../middlewares/validators.middleware')
-const {taskExist} = require('../middlewares/tasks.middleware')
+const {taskExist, statusExist} = require('../middlewares/tasks.middleware')
 
 const tasksRouter = express.Router();
 
@@ -13,7 +13,7 @@ tasksRouter.get('/', getAllTasks);
 
 tasksRouter.post('/', createTaskValidator, createTasks);
 
-tasksRouter.get('/:status', getTasksByStatus);
+tasksRouter.get('/:status', statusExist, getTasksByStatus);
 
 tasksRouter.patch('/:id', taskExist,updateTasks);
 
