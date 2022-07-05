@@ -48,11 +48,13 @@ const getTasksByStatus = catchAsync(async (req,res) => {
 })
 
 const updateTasks = catchAsync(async (req,res) => {
-    const finishDate = new Date()
+    const {finishDate} = req.body
 
 	const {task} = req
 
-    const inTime = Number(task.limitDate) > Number(finishDate)
+	const finishDateNum = new Date(finishDate)
+
+    const inTime = Number(task.limitDate) > Number(finishDateNum)
 
 	await task.update({
         status: inTime ? 'completed' : 'late',
